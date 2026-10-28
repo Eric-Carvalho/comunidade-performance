@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  COMUNIDADE PERFORMANCE — brain.html (PAGE 04/04)
+  =====================================================================
+  Tools for the mind: pomodoro timer, reading calculator, breathing.
+  This page's tools: brain.js.
+  Shared parts (header, footer, styles) are explained in index.html.
+
+  PRIVACY: the timer and calculators run only in the visitor's
+  browser. Nothing is saved (a reload resets them) or sent anywhere.
+  Keep the id="..." and data-... attributes: brain.js reads them.
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- SECURITY (CSP): strict — see index.html for the explanation -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="no-referrer">
+
+  <title>Brain — Comunidade Performance</title>
+  <meta name="description" content="Pomodoro no navegador, calculadora de leitura e respiração quadrada.">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <script src="brain.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- HEADER (SHARED) — same block in all 5 pages; see index.html -->
+  <header class="site-header">
+    <div class="topbar">
+      <span>o-dia-termina-em/</span>
+      <span class="countdown" aria-label="Tempo restante no dia">
+        <span data-cd-h>00</span><span class="sep">:</span><span data-cd-m>00</span><span class="sep">:</span><span data-cd-s>00</span>
+      </span>
+      <span class="topbar-right">sem-cookies / sem-rastreio</span>
+    </div>
+
+    <div class="nav">
+      <a class="logo" href="index.html" aria-label="Comunidade Performance — início"><span>CP<span class="logo-dot" aria-hidden="true"></span></span></a>
+
+      <nav id="menu-principal" class="main-nav" aria-label="Principal">
+        <ul>
+          <li><a href="economics.html">Economics</a></li>
+          <li><a href="tech.html">Tech</a></li>
+          <li><a href="running.html">Running</a></li>
+          <li><a href="brain.html" aria-current="page">Brain</a></li>
+          <li class="nav-spacer" aria-hidden="true"></li>
+        </ul>
+      </nav>
+
+      <button class="theme-toggle" type="button" aria-label="Alternar tema claro/escuro">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="theme-label">Escuro</span>
+      </button>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="sr-only">Abrir menu</span>
+        <span class="menu-bar" aria-hidden="true"></span>
+        <span class="menu-bar" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- HERO -->
+    <section id="topo" class="hero">
+      <div class="wordmark-wrap">
+        <h1 class="sr-only">Brain — Comunidade Performance</h1>
+        <svg class="wordmark" viewBox="0 0 1200 112" aria-hidden="true">
+          <text x="0" y="104" textLength="483" lengthAdjust="spacingAndGlyphs">BRAIN</text>
+          <rect class="wm-accent" x="515" y="66" width="38" height="38"/>
+        </svg>
+      </div>
+
+      <div class="frame">
+        <div class="cells hero-cells">
+          <div class="cell hero-left">
+            <div class="hero-meta">
+              <span>comunidade / brain</span>
+              <span>pagina 04/04</span>
+            </div>
+            <p class="slug">foco-e-calma/</p>
+          </div>
+          <div class="hero-right">
+            <p class="big-text">
+              Atenção é a base de todas as outras performances. Use o pomodoro
+              para focar, simule seu ritmo de leitura e respire um minuto.
+            </p>
+            <div class="hero-action">
+              <a class="btn-block" href="#pomodoro">Abrir pomodoro <span class="arrow" aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="band"></div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         POMODORO TIMER
+         Left: the timer. Right: settings + how it works.
+         Default times are the value="..." of each input (25 / 5 / 15).
+         The timer keeps correct time even if you switch apps or tabs.
+         ================================================================= -->
+    <section id="pomodoro" class="frame">
+      <div class="section-head reveal">
+        <span class="mono-label">foco.pomodoro()<span class="cursor" aria-hidden="true"></span></span>
+        <h2 class="slug">pomodoro/</h2>
+      </div>
+
+      <div class="cells">
+        <!-- TIMER -->
+        <div class="pomo" data-pomo>
+          <div class="seg" role="radiogroup" aria-label="Modo do pomodoro">
+            <input type="radio" name="pomo-mode" id="pomo-m-focus" value="focus" checked>
+            <label for="pomo-m-focus">Foco</label>
+            <input type="radio" name="pomo-mode" id="pomo-m-short" value="short">
+            <label for="pomo-m-short">Pausa curta</label>
+            <input type="radio" name="pomo-mode" id="pomo-m-long" value="long">
+            <label for="pomo-m-long">Pausa longa</label>
+          </div>
+
+          <div class="pomo-ring">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="ring-track" cx="60" cy="60" r="54"/>
+              <circle class="ring-progress" cx="60" cy="60" r="54" pathLength="100" data-pomo-ring/>
+            </svg>
+            <div class="pomo-time">
+              <span class="pomo-clock" data-pomo-clock role="timer">25:00</span>
+              <span class="mono-label" data-pomo-status>foco · pronto</span>
+            </div>
+          </div>
+
+          <!-- One square per pomodoro until the long break -->
+          <div class="pomo-dots" data-pomo-dots aria-hidden="true"></div>
+
+          <div class="pomo-actions">
+            <button class="btn-block" type="button" data-pomo-start>Iniciar</button>
+            <button class="btn-grey" type="button" data-pomo-reset>Zerar</button>
+            <button class="btn-grey" type="button" data-pomo-skip>Pular</button>
+          </div>
+
+          <!-- Read aloud by screen readers when a phase ends -->
+          <p class="sr-only" aria-live="polite" data-pomo-announce></p>
+        </div>
+
+        <!-- SETTINGS -->
+        <div>
+          <div class="tool-form">
+            <fieldset class="field">
+              <legend class="field-label">duração (minutos)</legend>
+              <div class="field-row">
+                <div class="input-wrap">
+                  <input class="input" id="pomo-focus" type="number" inputmode="numeric" min="1" max="180" value="25" aria-label="Foco em minutos">
+                  <span class="unit">foco</span>
+                </div>
+                <div class="input-wrap">
+                  <input class="input" id="pomo-short" type="number" inputmode="numeric" min="1" max="60" value="5" aria-label="Pausa curta em minutos">
+                  <span class="unit">curta</span>
+                </div>
+                <div class="input-wrap">
+                  <input class="input" id="pomo-long" type="number" inputmode="numeric" min="1" max="60" value="15" aria-label="Pausa longa em minutos">
+                  <span class="unit">longa</span>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="field">
+              <label class="field-label" for="pomo-every">pausa longa a cada</label>
+              <div class="input-wrap">
+                <input class="input" id="pomo-every" type="number" inputmode="numeric" min="2" max="12" value="4">
+                <span class="unit">pomodoros</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="check"><input type="checkbox" id="pomo-auto"> Iniciar a próxima fase automaticamente</label>
+              <label class="check"><input type="checkbox" id="pomo-sound" checked> Tocar som ao terminar</label>
+              <label class="check"><input type="checkbox" id="pomo-vibrate" checked> Vibrar ao terminar (celular)</label>
+              <label class="check"><input type="checkbox" id="pomo-wake" checked> Manter a tela ligada enquanto roda</label>
+            </div>
+          </div>
+
+          <ol class="howto">
+            <li><span>1</span>Escolha uma única tarefa.</li>
+            <li><span>2</span>Foque até o tempo acabar — sem celular, sem abas novas.</li>
+            <li><span>3</span>Faça a pausa curta: levante, beba água, respire.</li>
+            <li><span>4</span>A cada 4 pomodoros, faça uma pausa longa.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="band"></div>
+    </section>
+
+    <!-- =================================================================
+         READING CALCULATOR
+         Simulates how many pages you read in a given time, at your pace.
+         Left: inputs. Right: results + simulation table (brain.js).
+         The table times are in brain.js (READING_SIMULATIONS).
+         ================================================================= -->
+    <section id="leitura" class="frame">
+      <div class="section-head reveal">
+        <span class="mono-label">leitura.simular()<span class="cursor" aria-hidden="true"></span></span>
+        <h2 class="slug">calculadora-de-leitura/</h2>
+      </div>
+      <p class="section-intro">Descubra quantas páginas você lê no tempo que tem — e em quanto tempo termina um livro.</p>
+
+      <div class="cells">
+        <!-- INPUTS -->
+        <div class="tool-form" data-read>
+          <fieldset class="field">
+            <legend class="field-label">meu ritmo em</legend>
+            <div class="seg">
+              <input type="radio" name="read-unit" id="read-u-pph" value="pph" checked>
+              <label for="read-u-pph">Páginas/hora</label>
+              <input type="radio" name="read-unit" id="read-u-wpm" value="wpm">
+              <label for="read-u-wpm">Palavras/min</label>
+            </div>
+          </fieldset>
+
+          <!-- shown when "Páginas/hora" is selected -->
+          <div class="field" data-read-pph-field>
+            <label class="field-label" for="read-pph">páginas por hora</label>
+            <div class="input-wrap">
+              <input class="input" id="read-pph" type="text" inputmode="decimal" autocomplete="off" value="30">
+              <span class="unit">pág/h</span>
+            </div>
+            <span class="field-hint">Média de um adulto: 20 a 40 páginas por hora.</span>
+          </div>
+
+          <!-- shown when "Palavras/min" is selected -->
+          <fieldset class="field" data-read-wpm-field hidden>
+            <legend class="field-label">palavras por minuto · palavras por página</legend>
+            <div class="field-row">
+              <div class="input-wrap">
+                <input class="input" id="read-wpm" type="number" inputmode="numeric" min="1" value="250" aria-label="Palavras por minuto">
+                <span class="unit">ppm</span>
+              </div>
+              <div class="input-wrap">
+                <input class="input" id="read-wpp" type="number" inputmode="numeric" min="1" value="275" aria-label="Palavras por página">
+                <span class="unit">p/pág</span>
+              </div>
+            </div>
+            <span class="field-hint">Média: 200–300 palavras/min. Um livro comum tem ~250–300 palavras por página.</span>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend class="field-label">tempo de leitura (por dia)</legend>
+            <div class="field-row">
+              <div class="input-wrap">
+                <input class="input" id="read-h" type="number" inputmode="numeric" min="0" value="0" aria-label="Horas">
+                <span class="unit">h</span>
+              </div>
+              <div class="input-wrap">
+                <input class="input" id="read-min" type="number" inputmode="numeric" min="0" max="59" value="30" aria-label="Minutos">
+                <span class="unit">min</span>
+              </div>
+            </div>
+            <div class="chips">
+              <button class="chip" type="button" data-min="15">15 min</button>
+              <button class="chip" type="button" data-min="30">30 min</button>
+              <button class="chip" type="button" data-min="60">1 h</button>
+              <button class="chip" type="button" data-min="120">2 h</button>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label class="field-label" for="read-book">páginas do livro</label>
+            <div class="input-wrap">
+              <input class="input" id="read-book" type="number" inputmode="numeric" min="1" value="300">
+              <span class="unit">pág</span>
+            </div>
+          </div>
+
+          <!-- Helper: measure your own pace -->
+          <details class="collapse">
+            <summary>nao-sei-meu-ritmo/</summary>
+            <div class="tool-form">
+              <p class="field-hint">Leia por alguns minutos (use o pomodoro acima) e anote quantas páginas leu.</p>
+              <div class="field-row">
+                <div class="input-wrap">
+                  <input class="input" id="read-test-pages" type="text" inputmode="decimal" value="10" aria-label="Páginas lidas">
+                  <span class="unit">pág</span>
+                </div>
+                <div class="input-wrap">
+                  <input class="input" id="read-test-min" type="number" inputmode="numeric" min="1" value="20" aria-label="Minutos de leitura">
+                  <span class="unit">min</span>
+                </div>
+              </div>
+              <button class="btn-block is-grey" type="button" data-read-measure>Usar este ritmo <span class="arrow" aria-hidden="true">↑</span></button>
+            </div>
+          </details>
+
+          <p class="tool-msg" data-read-msg role="status"></p>
+        </div>
+
+        <!-- RESULTS (written by brain.js) -->
+        <div class="results" aria-live="polite">
+          <div class="result-main">
+            <span class="mono-label" data-read-out="label">em 30 min você lê</span>
+            <span class="big-num" data-read-out="pages">15<small>páginas</small></span>
+            <p class="result-sub" data-read-out="summary">no ritmo de 30 páginas por hora</p>
+          </div>
+
+          <div class="result-grid">
+            <div><span class="mono-label">livro inteiro</span><strong data-read-out="book-time">10h00</strong></div>
+            <div><span class="mono-label">dias p/ terminar</span><strong data-read-out="book-days">20</strong></div>
+            <div><span class="mono-label">livros por mês</span><strong data-read-out="month">1,5</strong></div>
+            <div><span class="mono-label">livros por ano</span><strong data-read-out="year">18</strong></div>
+          </div>
+
+          <p class="mono-label table-title" data-read-out="table-title">simulacoes/ no seu ritmo</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col">tempo/dia</th>
+                  <th scope="col" class="num">páginas</th>
+                  <th scope="col" class="num">dias p/ livro</th>
+                  <th scope="col" class="num">livros/ano</th>
+                </tr>
+              </thead>
+              <tbody data-read-out="table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="band"></div>
+    </section>
+
+    <!-- =================================================================
+         BREATHING (box breathing). Logic in brain.js.
+         ================================================================= -->
+    <section id="respiracao" class="frame">
+      <div class="section-head reveal">
+        <span class="mono-label">calma.respirar()<span class="cursor" aria-hidden="true"></span></span>
+        <h2 class="slug">respiracao-quadrada/</h2>
+      </div>
+      <div class="grid-panel" data-breath>
+        <div class="breath-circle" data-breath-circle aria-hidden="true"></div>
+        <p class="breath-label" data-breath-label aria-live="polite">pronto?</p>
+      </div>
+      <div class="panel-footer">
+        <span class="mono-label">inspire 4s · segure 4s · expire 4s · segure 4s</span>
+        <button class="btn-grey" type="button" data-breath-toggle>Iniciar</button>
+      </div>
+      <div class="band"></div>
+    </section>
+
+    <!-- PRINCIPLES (panel on the left: class "reverse") -->
+    <section id="principios" class="frame">
+      <div class="cells pillar-row reverse">
+        <div class="pillar-text reveal">
+          <div class="pillar-label-cells">
+            <div><span class="mono-label">brain.principios()</span></div>
+            <div aria-hidden="true"></div>
+          </div>
+          <p class="big-text">Poucos minutos por dia já fazem diferença.</p>
+          <ol class="tips">
+            <li class="tip">
+              <span class="tip-num">1</span>
+              <h3>Uma coisa de cada vez</h3>
+              <p>Multitarefa é troca rápida de foco — e cada troca custa energia. Feche o que não estiver usando.</p>
+            </li>
+            <li class="tip">
+              <span class="tip-num">2</span>
+              <h3>Leia um pouco todo dia</h3>
+              <p>20 minutos por dia somam mais de 10 livros por ano. Use a calculadora para ver o seu número.</p>
+            </li>
+            <li class="tip">
+              <span class="tip-num">3</span>
+              <h3>Cinco minutos de silêncio</h3>
+              <p>Sente-se, observe a respiração. Quando a mente fugir, apenas volte. Isso é o treino.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="pillar-visual panel-inverse" aria-hidden="true">
+          <svg viewBox="0 0 300 200">
+            <circle class="v-soft" cx="150" cy="100" r="90"/>
+            <circle class="v-stroke" cx="150" cy="100" r="64"/>
+            <circle class="v-stroke" cx="150" cy="100" r="38"/>
+            <circle class="v-accent" cx="150" cy="100" r="12"/>
+          </svg>
+          <span class="visual-tag">.brain/</span>
+        </div>
+      </div>
+      <div class="band"></div>
+    </section>
+  </main>
+
+  <!-- FOOTER (SHARED) — same block in all 5 pages -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a class="logo" href="index.html" aria-label="Início"><span>CP<span class="logo-dot" aria-hidden="true"></span></span></a>
+      <p class="footer-note">© <span data-year>2026</span> comunidade-performance / economics · tech · running · brain</p>
+      <a class="back-top" href="#topo">voltar-ao-topo/ ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

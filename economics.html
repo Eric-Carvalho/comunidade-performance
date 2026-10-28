@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  COMUNIDADE PERFORMANCE — economics.html (PAGE 01/04)
+  =====================================================================
+  Finance basics + live market (TradingView).
+  Shared parts (header, footer, styles) are explained in index.html.
+  This page's tool: economics.js (TradingView widgets).
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    SECURITY: Content-Security-Policy (CSP)
+    Same strict policy as the other pages, PLUS TradingView, allowed in
+    exactly two places (and only used after the visitor clicks):
+      script-src  ... https://s3.tradingview.com    -> widget loaders
+      frame-src   https://*.tradingview.com https://*.tradingview-widget.com
+                                                     -> widget windows
+    NOTE: after the click, the browser console shows "Applying inline
+    style violates ... style-src". That is TradingView's script trying
+    to add an inline style; our policy blocks it ON PURPOSE and the
+    widgets still work (styles.css sizes them). It is not an error.
+    Do NOT add 'unsafe-inline' or 'unsafe-eval'.
+  -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' https://s3.tradingview.com; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src https://*.tradingview.com https://*.tradingview-widget.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="no-referrer">
+
+  <title>Economics — Comunidade Performance</title>
+  <meta name="description" content="O básico de finanças pessoais e o mercado ao vivo com TradingView.">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Order matters: script.js first, then this page's script. -->
+  <script src="script.js" defer></script>
+  <script src="economics.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- HEADER (SHARED) — same block in all 5 pages; see index.html -->
+  <header class="site-header">
+    <div class="topbar">
+      <span>o-dia-termina-em/</span>
+      <span class="countdown" aria-label="Tempo restante no dia">
+        <span data-cd-h>00</span><span class="sep">:</span><span data-cd-m>00</span><span class="sep">:</span><span data-cd-s>00</span>
+      </span>
+      <span class="topbar-right">sem-cookies / sem-rastreio</span>
+    </div>
+
+    <div class="nav">
+      <a class="logo" href="index.html" aria-label="Comunidade Performance — início"><span>CP<span class="logo-dot" aria-hidden="true"></span></span></a>
+
+      <nav id="menu-principal" class="main-nav" aria-label="Principal">
+        <ul>
+          <li><a href="economics.html" aria-current="page">Economics</a></li>
+          <li><a href="tech.html">Tech</a></li>
+          <li><a href="running.html">Running</a></li>
+          <li><a href="brain.html">Brain</a></li>
+          <li class="nav-spacer" aria-hidden="true"></li>
+        </ul>
+      </nav>
+
+      <button class="theme-toggle" type="button" aria-label="Alternar tema claro/escuro">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="theme-label">Escuro</span>
+      </button>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="sr-only">Abrir menu</span>
+        <span class="menu-bar" aria-hidden="true"></span>
+        <span class="menu-bar" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- HERO: page name in giant letters + intro.
+         textLength = width of the word; the red square sits after it. -->
+    <section id="topo" class="hero">
+      <div class="wordmark-wrap">
+        <h1 class="sr-only">Economics — Comunidade Performance</h1>
+        <svg class="wordmark" viewBox="0 0 1200 112" aria-hidden="true">
+          <text x="0" y="104" textLength="964" lengthAdjust="spacingAndGlyphs">ECONOMICS</text>
+          <rect class="wm-accent" x="996" y="66" width="38" height="38"/>
+        </svg>
+      </div>
+
+      <div class="frame">
+        <div class="cells hero-cells">
+          <div class="cell hero-left">
+            <div class="hero-meta">
+              <span>comunidade / economics</span>
+              <span>pagina 01/04</span>
+            </div>
+            <p class="slug">dinheiro-com-calma/</p>
+          </div>
+          <div class="hero-right">
+            <p class="big-text">
+              O básico bem feito vale mais que qualquer atalho. Organize o dinheiro
+              para ter tranquilidade hoje e liberdade amanhã.
+            </p>
+            <div class="hero-action">
+              <a class="btn-block" href="#mercado">Ver mercado ao vivo <span class="arrow" aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="band"></div>
+      </div>
+    </section>
+
+    <!-- PRINCIPLES: text + numbered tips, red panel on the right.
+         To ADD A TIP: copy one <li class="tip">...</li>. -->
+    <section id="principios" class="frame">
+      <div class="cells pillar-row">
+        <div class="pillar-text reveal">
+          <div class="pillar-label-cells">
+            <div><span class="mono-label">economics.principios()</span></div>
+            <div aria-hidden="true"></div>
+          </div>
+          <p class="big-text">Três princípios para começar com o pé direito.</p>
+          <ol class="tips">
+            <li class="tip">
+              <span class="tip-num">1</span>
+              <h3>Gaste menos do que ganha</h3>
+              <p>Anote suas despesas por um mês. Uma regra simples para começar é 50/30/20: necessidades, desejos e futuro.</p>
+            </li>
+            <li class="tip">
+              <span class="tip-num">2</span>
+              <h3>Reserva de emergência</h3>
+              <p>Antes de investir com risco, guarde de 3 a 6 meses do seu custo de vida em algo seguro e com liquidez.</p>
+            </li>
+            <li class="tip">
+              <span class="tip-num">3</span>
+              <h3>Tempo e juros compostos</h3>
+              <p>Aportes pequenos e constantes, por muitos anos, costumam vencer tentativas de “acertar o momento”.</p>
+            </li>
+          </ol>
+          <p class="disclaimer">Conteúdo educativo. Não é recomendação de investimento.</p>
+        </div>
+
+        <div class="pillar-visual panel-red" aria-hidden="true">
+          <svg viewBox="0 0 300 200">
+            <rect class="v-soft" x="20"  y="140" width="36" height="50"/>
+            <rect class="v-soft" x="80"  y="115" width="36" height="75"/>
+            <rect class="v-soft" x="140" y="85"  width="36" height="105"/>
+            <rect class="v-soft" x="200" y="50"  width="36" height="140"/>
+            <polyline class="v-stroke" points="20,150 98,118 158,92 218,52 280,16"/>
+            <circle class="v-fill" cx="280" cy="16" r="6"/>
+          </svg>
+          <span class="visual-tag">.economics/</span>
+        </div>
+      </div>
+      <div class="band"></div>
+    </section>
+
+    <!-- =================================================================
+         MERCADO AO VIVO — TradingView widgets
+         PRIVACY FIRST: nothing from TradingView loads until the visitor
+         clicks "Carregar dados ao vivo". Before the click the page makes
+         ZERO external requests.
+
+         Each widget has an empty "slot": <div class="tv-slot" data-tv="...">
+           chart   -> advanced chart
+           news    -> top stories
+           heatmap -> stock heatmap
+         The widget SETTINGS (symbol, language...) are in economics.js
+         (object "TV_WIDGETS"). Widgets follow the light/dark theme.
+         To remove a widget: delete its whole <article> block.
+         ================================================================= -->
+    <section id="mercado" class="frame">
+      <div class="cells">
+        <div class="section-head reveal">
+          <span class="mono-label">ao_vivo()<span class="cursor" aria-hidden="true"></span></span>
+          <h2 class="slug">mercado-ao-vivo/</h2>
+        </div>
+
+        <div class="tv-consent" data-tv-consent>
+          <p>
+            Gráfico, notícias e mapa de calor em tempo real, fornecidos pela
+            <strong>TradingView</strong>. Para proteger sua privacidade, nada é
+            carregado até você clicar: a partir daí, seu navegador se conecta
+            aos servidores da TradingView.
+          </p>
+          <div class="tv-consent-action">
+            <button class="btn-block" type="button" data-tv-load>Carregar dados ao vivo <span class="arrow" aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- WIDGET 1: Advanced chart (full width) -->
+      <article class="tv-card">
+        <div class="tv-card-head">
+          <h3>grafico/</h3>
+          <span class="mono-label">tradingview · advanced chart</span>
+        </div>
+        <div class="tv-slot tv-slot-chart" data-tv="chart">
+          <p class="tv-placeholder">grafico_aguardando_clique/<span class="cursor" aria-hidden="true"></span></p>
+        </div>
+      </article>
+
+      <div class="cells tv-row">
+        <!-- WIDGET 2: Top stories (news) -->
+        <article class="tv-card">
+          <div class="tv-card-head">
+            <h3>noticias/</h3>
+            <span class="mono-label">tradingview · top stories</span>
+          </div>
+          <div class="tv-slot tv-slot-side" data-tv="news">
+            <p class="tv-placeholder">noticias_aguardando_clique/<span class="cursor" aria-hidden="true"></span></p>
+          </div>
+        </article>
+
+        <!-- WIDGET 3: Stock heatmap -->
+        <article class="tv-card">
+          <div class="tv-card-head">
+            <h3>mapa-de-calor/</h3>
+            <span class="mono-label">tradingview · s&amp;p 500</span>
+          </div>
+          <div class="tv-slot tv-slot-side" data-tv="heatmap">
+            <p class="tv-placeholder">mapa_aguardando_clique/<span class="cursor" aria-hidden="true"></span></p>
+          </div>
+        </article>
+      </div>
+
+      <p class="disclaimer tv-disclaimer">
+        Dados de mercado fornecidos pela TradingView. Conteúdo informativo, não é recomendação de investimento.
+        Ao carregar, vale a <a href="https://www.tradingview.com/privacy-policy/" target="_blank" rel="noopener noreferrer">política de privacidade da TradingView</a>.
+      </p>
+
+      <div class="band"></div>
+    </section>
+  </main>
+
+  <!-- FOOTER (SHARED) — same block in all 5 pages -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a class="logo" href="index.html" aria-label="Início"><span>CP<span class="logo-dot" aria-hidden="true"></span></span></a>
+      <p class="footer-note">© <span data-year>2026</span> comunidade-performance / economics · tech · running · brain</p>
+      <a class="back-top" href="#topo">voltar-ao-topo/ ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

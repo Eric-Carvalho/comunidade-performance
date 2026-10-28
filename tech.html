@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  COMUNIDADE PERFORMANCE — tech.html (PAGE 02/04)
+  =====================================================================
+  Programming basics. Text only (no page-specific script).
+  Shared parts (header, footer, styles) are explained in index.html.
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- SECURITY (CSP): strict — see index.html for the explanation -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="no-referrer">
+
+  <title>Tech — Comunidade Performance</title>
+  <meta name="description" content="O básico para aprender a programar com constância.">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- HEADER (SHARED) — same block in all 5 pages; see index.html -->
+  <header class="site-header">
+    <div class="topbar">
+      <span>o-dia-termina-em/</span>
+      <span class="countdown" aria-label="Tempo restante no dia">
+        <span data-cd-h>00</span><span class="sep">:</span><span data-cd-m>00</span><span class="sep">:</span><span data-cd-s>00</span>
+      </span>
+      <span class="topbar-right">sem-cookies / sem-rastreio</span>
+    </div>
+
+    <div class="nav">
+      <a class="logo" href="index.html" aria-label="Comunidade Performance — início"><span>CP<span class="logo-dot" aria-hidden="true"></span></span></a>
+
+      <nav id="menu-principal" class="main-nav" aria-label="Principal">
+        <ul>
+          <li><a href="economics.html">Economics</a></li>
+          <li><a href="tech.html" aria-current="page">Tech</a></li>
+          <li><a href="running.html">Running</a></li>
+          <li><a href="brain.html">Brain</a></li>
+          <li class="nav-spacer" aria-hidden="true"></li>
+        </ul>
+      </nav>
+
+      <button class="theme-toggle" type="button" aria-label="Alternar tema claro/escuro">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="theme-label">Escuro</span>
+      </button>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="sr-only">Abrir menu</span>
+        <span class="menu-bar" aria-hidden="true"></span>
+        <span class="menu-bar" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- HERO -->
+    <section id="topo" class="hero">
+      <div class="wordmark-wrap">
+        <h1 class="sr-only">Tech — Comunidade Performance</h1>
+        <svg class="wordmark" viewBox="0 0 1200 112" aria-hidden="true">
+          <text x="0" y="104" textLength="425" lengthAdjust="spacingAndGlyphs">TECH</text>
+          <rect class="wm-accent" x="457" y="66" width="38" height="38"/>
+        </svg>
+      </div>
+
+      <div class="frame">
+        <div class="cells hero-cells">
+          <div class="cell hero-left">
+            <div class="hero-meta">
+              <span>comunidade / tech</span>
+              <span>pagina 02/04</span>
+            </div>
+            <p class="slug">codigo-todo-dia/</p>
+          </div>
+          <div class="hero-right">
+            <p class="big-text">
+              Programar é um esporte de repetição. Pratique pouco, todo dia,
+              com projetos reais — e use o Git desde o primeiro arquivo.
+            </p>
+            <div class="hero-action">
+              <a class="btn-block" href="#principios">Ver princípios <span class="arrow" aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="band"></div>
+      </div>
+    </section>
+
+    <!-- PRINCIPLES (panel on the left: class "reverse") -->
+    <section id="principios" class="frame">
+      <div class="cells pillar-row reverse">
+        <div class="pillar-text reveal">
+          <div class="pillar-label-cells">
+            <div><span class="mono-label">tech.principios()</span></div>
+            <div aria-hidden="true"></div>
+          </div>
+          <p class="big-text">Três hábitos que fazem mais diferença do que qualquer curso.</p>
+          <ol class="tips">
+            <li class="tip">
+              <span class="tip-num">1</span>
+              <h3>Um pouco todo dia</h3>
+              <p>30 minutos diários ensinam mais que 5 horas no fim de semana. Constância cria memória.</p>
+            </li>
+            <li class="tip">
+              <span class="tip-num">2</span>
+              <h3>Construa projetos reais</h3>
+              <p>Escolha um problema seu (como este site!) e resolva com código. Tutoriais só levam até certo ponto.</p>
+            </li>
+            <li class="tip">
+              <span class="tip-num">3</span>
+              <h3>Use Git desde o início</h3>
+              <p>Versione tudo e leia código de outras pessoas no GitHub. Revisar é uma forma rápida de aprender.</p>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Inverted panel: code snippet (edit the lines freely) -->
+        <div class="pillar-visual panel-inverse" aria-hidden="true">
+<pre class="code-box"><code><span class="c-key">const</span> meta = <span class="c-str">"evoluir"</span>;
+<span class="c-key">while</span> (vivo) {
+  praticar(30); <span class="c-com">// min</span>
+  commit(meta);
+}</code></pre>
+          <span class="visual-tag">.tech/</span>
+        </div>
+      </div>
+      <div class="band"></div>
+    </section>
+
+    <!-- ROADMAP: simple numbered list. Copy an <li> to add a step. -->
+    <section id="roteiro" class="frame">
+      <div class="cells">
+        <div class="section-head reveal">
+          <span class="mono-label">tech.roteiro()<span class="cursor" aria-hidden="true"></span></span>
+          <h2 class="slug">por-onde-comecar/</h2>
+        </div>
+        <ol class="howto">
+          <li><span>1</span>HTML e CSS: monte uma página simples sobre você.</li>
+          <li><span>2</span>JavaScript: deixe a página interativa (um botão, uma calculadora).</li>
+          <li><span>3</span>Git e GitHub: salve cada passo e publique o projeto.</li>
+          <li><span>4</span>Um projeto por mês: pequeno, terminado e publicado.</li>
+        </ol>
+      </div>
+      <div class="band"></div>
+    </section>
+  </main>
+
+  <!-- FOOTER (SHARED) — same block in all 5 pages -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a class="logo" href="index.html" aria-label="Início"><span>CP<span class="logo-dot" aria-hidden="true"></span></span></a>
+      <p class="footer-note">© <span data-year>2026</span> comunidade-performance / economics · tech · running · brain</p>
+      <a class="back-top" href="#topo">voltar-ao-topo/ ↑</a>
+    </div>
+  </footer>
+</body>
+</html>
